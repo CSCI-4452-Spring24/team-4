@@ -20,6 +20,7 @@ This is a project that allows users to spin up their own miniature decentralized
 2. Run "npm install -g ganache-cli"
 3. Run "npm install -g truffle"
 4. Navigate to /blockchain_frontend subfolder in the root directory and run "npm install"
+5. Verify that there are node_modules folders in root directory and /blockchain_frontend. If not repeat step 1 and 4.
 
 ## To Run Project Locally
 
