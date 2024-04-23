@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build backend Docker image
+      run: docker build -t my-backend-image .
+
+    - name: Build frontend Docker image
+      run: docker build -t my-frontend-image ./blockchain_frontend
+
+  deploy:
+    needs: build
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Docker Compose
+      run: docker-compose -f docker-compose.yml up -d
