@@ -35,6 +35,6 @@ const result = await contract.methods.setNumber(number).send({ from: accounts[0]
 res.json({ message: 'number set successfully' }); 
 }); 
 
-app.listen(3000, () => { 
-console.log('Server listening on port 3000'); 
+app.listen(3001, () => { 
+console.log('Server listening on port 3001'); 
 });
