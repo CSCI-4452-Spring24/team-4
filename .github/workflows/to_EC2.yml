@@ -17,10 +17,10 @@ jobs:
       - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-      - name: Build and Push Backend Docker image
+      - name: Build Backend Docker image
         run: docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKERHUB_USERNAME }}/blockchain-backend-image:latest --builder default .
 
-      - name: Build and Push Frontend Docker image
+      - name: Build Frontend Docker image
         run: docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKERHUB_USERNAME }}/blockchain-frontend-image:latest --builder default ./blockchain_frontend
 
       - name: Push backend Docker image to Docker Hub
