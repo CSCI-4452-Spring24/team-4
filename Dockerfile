@@ -10,11 +10,7 @@ COPY start_ganache.sh .
 
 RUN apt-get update && apt-get install -y dos2unix
 
-RUN ls -l start_ganache.sh
-
 RUN dos2unix start_ganache.sh
-
-RUN ls -l start_ganache.sh
 
 RUN chmod +x start_ganache.sh
 
