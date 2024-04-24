@@ -16,7 +16,7 @@ RUN dos2unix start_ganache.sh
 
 RUN ls -l start_ganache.sh
 
-RUN ["chmod", "+x", "start_ganache.sh"]
+RUN chmod +x start_ganache.sh
 
 RUN npm install
 RUN npm install -g ganache-cli
