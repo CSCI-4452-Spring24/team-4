@@ -1,0 +1,42 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+      - name: Build Backend Docker image
+        run: docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKERHUB_USERNAME }}/blockchain-backend-image:latest .
+
+      - name: Build Frontend Docker image
+        run: docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKERHUB_USERNAME }}/blockchain-frontend-image:latest ./blockchain_frontend
+
+      - name: Push backend Docker image to Docker Hub
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/blockchain-backend-image:latest
+
+      - name: Push frontend Docker image to Docker Hub
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/blockchain-frontend-image:latest
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Copy Docker Compose file to EC2 instance
+        run: scp docker-compose.yml ec2-user@ec2-34-226-123-97.compute-1.amazonaws.com:/home/ec2-user/project/docker-compose.yml
+
+      - name: SSH into EC2 instance and deploy
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@ec2-34-226-123-97.compute-1.amazonaws.com 'cd /home/ec2-user/project && docker-compose up -d'
