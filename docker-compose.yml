@@ -1,13 +1,11 @@
 version: '3'
 services:
   backend:
-    build: .
+    image: nicholasdobard/blockchain-backend-image:latest
     ports:
     - "3001:3001"
     - "8545:8545"
   frontend:
-    build: ./blockchain_frontend
+    image: nicholasdobard/blockchain-frontend-image:latest
     ports: 
       - "3006:3000"
-    # depends_on:
-    #  - backend
