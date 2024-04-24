@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y dos2unix
 
 RUN dos2unix start_ganache.sh
 
-RUN chmod +x start_ganache.sh
+RUN ["chmod", "+x", "start_ganache.sh"]
 
 RUN npm install
 RUN npm install -g ganache-cli
