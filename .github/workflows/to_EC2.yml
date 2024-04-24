@@ -18,15 +18,17 @@ jobs:
         run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Build and Push Backend Docker image
-        run: |
-          docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKERHUB_USERNAME }}/blockchain-backend-image:latest .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/blockchain-backend-image:latest
+        run: docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKERHUB_USERNAME }}/blockchain-backend-image:latest .
 
       - name: Build and Push Frontend Docker image
-        run: |
-          docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKERHUB_USERNAME }}/blockchain-frontend-image:latest ./blockchain_frontend
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/blockchain-frontend-image:latest
+        run: docker buildx build --platform linux/amd64 -t ${{ secrets.DOCKERHUB_USERNAME }}/blockchain-frontend-image:latest ./blockchain_frontend
 
+      - name: Push backend Docker image to Docker Hub
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/blockchain-backend-image:latest
+
+      - name: Push frontend Docker image to Docker Hub
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/blockchain-frontend-image:latest
+          
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
