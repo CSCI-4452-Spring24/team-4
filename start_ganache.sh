@@ -1,5 +1,3 @@
-#!/bin/sh
-
 # Start Ganache CLI in the background
 echo "Starting Ganache CLI"
 ganache-cli &
