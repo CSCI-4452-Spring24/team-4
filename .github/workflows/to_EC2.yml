@@ -39,4 +39,4 @@ jobs:
 
       - name: SSH into EC2 instance and deploy
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@ec2-54-209-5-101.compute-1.amazonaws.com 'cd /home/ec2-user/project && docker-compose up -d'
+          ssh -o StrictHostKeyChecking=no ec2-user@ec2-54-209-5-101.compute-1.amazonaws.com 'cd /home/ec2-user/project && docker-compose up -d --pull'
