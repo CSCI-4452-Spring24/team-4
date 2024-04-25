@@ -8,7 +8,7 @@ const BlockchainApp = () => {
 
   const handleGetNumber = async () => {
     try {
-      const response = await axios.get('http://54.209.5.101:3001/number');
+      const response = await axios.get('http://localhost:3001/number');
       console.log('Response:', response);
       setNumber(response.data.number);
     } catch (error) {
@@ -18,7 +18,7 @@ const BlockchainApp = () => {
 
   const handleSetNumber = async () => {
     try {
-      await axios.post('http://54.209.5.101:3001/number', { number: inputValue });
+      await axios.post('http://localhost:3001/number', { number: inputValue });
       console.log('Number set successfully:', inputValue);
       setInputValue('');
       handleGetNumber();
